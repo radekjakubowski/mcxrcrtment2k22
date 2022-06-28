@@ -1,26 +1,27 @@
 import { Person } from './../../_models/person';
 import { PersonRepository } from './../_repository/person-repository.service';
 import { Injectable } from '@angular/core';
+import { AbstractController } from '../_abstractions/abstract-controller';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PersonController {
+export class PersonController implements AbstractController<Person> {
   constructor(private personRepository: PersonRepository) { }
 
-  getAllPeople(): Person[] {
+  public getAll(): Person[] {
     return this.personRepository.getAll();
   }
 
-  updatePerson(person: Person) {
+  public update(person: Person) {
     this.personRepository.update(person);
   }
 
-  deletePerson(id: any) {
+  public delete(id: any) {
     this.personRepository.delete(id);
   }
 
-  addPerson(person: Person) {
+  public addNew(person: Person) {
     this.personRepository.add(person);
   }
 }

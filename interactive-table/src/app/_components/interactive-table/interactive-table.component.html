@@ -1,0 +1,5 @@
+<div class="table-container">
+  <ul class="table-container__list">
+    <li *ngFor="let person of people$ | async">{{ person.firstName }}</li>
+  </ul>
+</div>
