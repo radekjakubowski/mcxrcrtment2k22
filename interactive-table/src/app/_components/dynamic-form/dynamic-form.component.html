@@ -1,0 +1,12 @@
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+
+    <div *ngFor="let control of controls" class="form-row">
+      <app-dynamic-form-person [control]="control" [form]="form"></app-dynamic-form-person>
+    </div>
+
+    <div class="form-row">
+      <button type="submit" [disabled]="!form.touched">Save</button>
+    </div>
+  </form>
+</div>

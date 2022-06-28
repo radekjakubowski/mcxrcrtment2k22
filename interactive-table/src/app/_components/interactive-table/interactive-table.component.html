@@ -1,5 +1,19 @@
 <div class="table-container">
-  <ul class="table-container__list">
-    <li *ngFor="let person of people$ | async">{{ person.firstName }}</li>
-  </ul>
+  <table>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Street name</th>
+      <th>House number</th>
+      <th>Apartment number</th>
+      <th>Postal code</th>
+      <th>Town</th>
+      <th>Phone number</th>
+      <th>Date of birth</th>
+      <th>Age</th>
+    </tr>
+    <tr *ngFor="let person of people$ | async">
+      <app-dynamic-form [controls]="getFormControlsForPerson(person) | async"></app-dynamic-form>
+    </tr>
+  </table>
 </div>

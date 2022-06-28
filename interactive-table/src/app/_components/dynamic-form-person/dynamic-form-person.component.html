@@ -1,0 +1,5 @@
+<div [formGroup]="form">
+  <div [ngSwitch]="control.controlType">
+    <input *ngSwitchCase="'textbox'" [formControlName]="control.key"
+            [id]="control.key" [type]="control.controlType">
+</div>
