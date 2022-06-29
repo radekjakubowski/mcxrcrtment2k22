@@ -20,7 +20,7 @@ export class InteractiveTableComponent implements OnInit {
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
   public personCreateModalRef: BsModalRef;
-  public people: Person[] = mockData;
+  public people: Person[];
   private readonly restrictedFields = ['id'];
 
   constructor(private peopleController: PersonController, private modalService: BsModalService) {
@@ -81,60 +81,25 @@ export class InteractiveTableComponent implements OnInit {
       this.ngOnInit();
     })
   }
-}
 
-const mockData: Person[] = [
-  {
-    id: 'xyz1',
-    firstName: 'asdasd',
-    lastName: 'asz',
-    streetName: 'qwez',
-    houseNumber: 'xqweqwe',
-    apartmentNumber: 'xyqweqwe',
-    postalCode: 'xyasdasz',
-    town: 'xZzxcyz',
-    phoneNumber: 'xyz',
-    dateOfBirth: '2005-06-07',
-    age: 24,
-  },
-  {
-    id: 'xyz2',
-    firstName: 'xqweqwz',
-    lastName: 'xqrqwryz',
-    streetName: 'xqwrqwr',
-    houseNumber: 'xqwrqwrz',
-    apartmentNumber: 'xyz',
-    postalCode: 'xyz',
-    town: 'xyz',
-    phoneNumber: 'xyz',
-    dateOfBirth: '2005-06-07',
-    age: 22,
-  },
-  {
-    id: 'xyz3',
-    firstName: 'xyz',
-    lastName: 'xyz',
-    streetName: 'xyz',
-    houseNumber: 'xyz',
-    apartmentNumber: 'xyz',
-    postalCode: 'xyz',
-    town: 'xyz',
-    phoneNumber: 'xyz',
-    dateOfBirth: '2005-06-07',
-    age: 22,
-  },
-  {
-    id: 'xyz4',
-    firstName: 'xyz',
-    lastName: 'xyz',
-    streetName: 'xyz',
-    houseNumber: 'xyz',
-    apartmentNumber: 'xyz',
-    postalCode: 'xyz',
-    town: 'xyz',
-    phoneNumber: 'xyz',
-    dateOfBirth: '2005-06-07',
-    age: 22,
+  public reloadData() {
+    this.ngOnInit();
   }
-]
+
+  public saveChanges() {
+    const editedPeople: Person[] = this.personFormComponents.filter(pfc => pfc.changesMade).map(pfc => {
+      const updatedValue = pfc.userForm.value;
+      const id = pfc.person.id;
+
+      return {...updatedValue, id} as Person;
+    });
+
+    editedPeople.forEach(person => {
+      this.peopleController.update(person);
+    })
+
+    this.personFormComponents.forEach(pfc => pfc.changesMade = false);
+    this.ngOnInit();
+  }
+}
 
