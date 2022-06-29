@@ -1,5 +1,5 @@
 export interface Person {
-  id: any //to type
+  id: string;
   firstName: string;
   lastName: string;
   streetName: string;

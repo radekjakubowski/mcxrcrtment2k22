@@ -20,14 +20,14 @@ export class InteractiveTableComponent implements OnInit {
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
   public personCreateModalRef: BsModalRef;
-  private people: Person[] = mockData;
+  public people: Person[] = mockData;
   private readonly restrictedFields = ['id'];
 
   constructor(private peopleController: PersonController, private modalService: BsModalService) {
-    this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
   }
 
   ngOnInit(): void {
+    this.people$ = of(this.peopleController.getAll());  /* of(mockData) */;
     this.people$.pipe(take(1)).subscribe(people => this.people = people);
     this.personControls = this.prepareFormFields(this.people);
   }
@@ -63,10 +63,8 @@ export class InteractiveTableComponent implements OnInit {
   }
 
   public handlePersonDelete($event) {
-    let personToDelete = this.people.find(person => person.id === $event);
-    let index = this.people.indexOf(personToDelete);
+    this.peopleController.delete($event);
 
-    this.people.splice(index, 1);
     this.ngOnInit();
   }
 
@@ -76,6 +74,12 @@ export class InteractiveTableComponent implements OnInit {
 
   public addNewPerson(): void {
     this.personCreateModalRef = this.modalService.show(CreatePersonComponent);
+
+    this.personCreateModalRef?.content?.createdPersonEmitter.pipe(take(1)).subscribe(person => {
+      this.peopleController.addNew(person);
+
+      this.ngOnInit();
+    })
   }
 }
 

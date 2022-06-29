@@ -1,5 +1,6 @@
+<h3 *ngIf="!people.length" class="title">Looks like there's no people in the table. Please add some.</h3>
 <div class="table-container">
-  <table>
+  <table *ngIf="people.length">
     <thead>
       <tr>
         <th>First name</th>

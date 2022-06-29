@@ -1,6 +1,8 @@
+import { RandomStringService } from './../../_services/random-string.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Person } from '../../_models/person';
 
 @Component({
   selector: 'app-create-person',
@@ -9,8 +11,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreatePersonComponent implements OnInit {
   public createPersonForm: FormGroup;
+  public createdPersonEmitter: EventEmitter<Person> = new EventEmitter();
 
-  constructor(public modalRef: BsModalRef) {
+  constructor(public modalRef: BsModalRef, private rss: RandomStringService) {
     this.createForm();
    }
 
@@ -33,7 +36,10 @@ export class CreatePersonComponent implements OnInit {
   }
 
   public createPerson() {
+    const formPerson: Person = this.createPersonForm.value;
+    const newPerson: Person = {...formPerson, id: this.rss.randomString(10) }
 
+    this.createdPersonEmitter.emit(newPerson);
+    this.modalRef.hide();
   }
-
 }

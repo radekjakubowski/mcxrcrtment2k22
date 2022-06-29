@@ -26,18 +26,29 @@ export class PersonRepository implements AbstractRepository<Person> {
   public delete(id: any): void {
     this.currentDataReference = JSON.parse(this.cookieService.get(this.cookieKey));
 
-    const personToDelete: Person | undefined = this.currentDataReference.find((p: Person) => { p.id === id });
+    const personToDelete: Person | undefined = this.currentDataReference.find((p: Person) => p.id === id );
 
     if (personToDelete) {
       const index: number = this.currentDataReference.indexOf(personToDelete);
 
-      this.currentDataReference = [...this.currentDataReference.slice(index, 1)];
-      this.cookieService.set(this.cookieKey, JSON.stringify(this.currentDataReference));
+      this.currentDataReference.splice(index, 1);
+
+      if (!this.currentDataReference.length) {
+        this.cookieService.delete(this.cookieKey);
+      } else {
+        this.cookieService.set(this.cookieKey, JSON.stringify(this.currentDataReference));
+      }
     }
   }
 
   public getAll(): Person[] {
-    this.currentDataReference = JSON.parse(this.cookieService.get(this.cookieKey));
+    this.currentDataReference = [];
+
+    try {
+      this.currentDataReference = JSON.parse(this.cookieService.get(this.cookieKey));
+    } catch (e) {
+      console.error('no data');
+    }
 
     return [...this.currentDataReference];
   }

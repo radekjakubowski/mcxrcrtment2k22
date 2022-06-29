@@ -38,7 +38,7 @@ export class PersonFormComponent implements OnInit {
     this.userForm = this.pfgs.toFormGroup(this.controls);
   }
 
-  deletePerson(id: number) {
+  deletePerson() {
     this.deleteHandler.emit(this.person.id);
   }
 
