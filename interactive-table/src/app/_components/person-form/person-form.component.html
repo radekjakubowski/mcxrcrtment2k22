@@ -1,6 +1,6 @@
 <tr>
   <td *ngFor="let control of controls">
-    <input [type]="control.controlType" [value]="control.value" [disabled]="control.disabled" (input)="patchControlValue(control.key, $event)">
+    <input class='input' [type]="control.controlType" [value]="control.value" [disabled]="control.disabled" (input)="patchControlValue(control.key, $event)">
   </td>
   <td>
     <button (click)="deletePerson()" class="btn btn-danger">Delete</button>
