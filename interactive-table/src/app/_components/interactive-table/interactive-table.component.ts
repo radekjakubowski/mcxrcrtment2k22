@@ -12,33 +12,47 @@ import { PersonFormGroupService } from '../../_services/person-form-group.servic
 })
 export class InteractiveTableComponent implements OnInit {
   public people$: Observable<Person[]> | undefined;
+  public personControls: Record<string, ControlBase<string>[]>;
+  private people: Person[] = mockData;
+  private restrictedFields = ['id'];
   //make use of text control
 
   constructor(private peopleController: PersonController, personFormGroupService: PersonFormGroupService) {
     this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
+    this.personControls = this.prepareFormFields(this.people);
   }
 
   ngOnInit(): void {
   }
 
-  public getFormControlsForPerson(person: Person): Observable<ControlBase<string>[]> {
-    let controls: ControlBase<string>[] = [];
+  private prepareFormFields(people: Person[]): Record<string, ControlBase<string>[]> {
+    let allFormControls: Record<string, ControlBase<string>[]> = {};
 
-    const props = Object.getOwnPropertyNames(person);
+    people.forEach(person => {
+      let controls: ControlBase<string>[] = [];
+      const props = Object.getOwnPropertyNames(person);
 
-    props.forEach(prop => {
-      let control: ControlBase<string> = new ControlBase<string>(
-        {
-          key: `${person.id}-${prop}`,
-          value: person[prop],
-          controlType: 'textbox'
+      props.forEach(prop => {
+        let control: ControlBase<string> = new ControlBase<string>(
+          {
+            key: `${prop}`,
+            value: person[prop],
+            controlType: 'textbox',
+            disabled: `${prop}` === 'age' ? true : false,
+          }
+        )
+
+        if (!this.restrictedFields.includes(control.key)) {
+          controls.push(control);
         }
-      )
+      })
 
-      controls.push(control);
+      allFormControls[person.id] = controls;
+      controls = null;
     })
 
-    return of(controls);
+
+    return allFormControls;
   }
 }
 

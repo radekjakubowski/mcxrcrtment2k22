@@ -5,16 +5,14 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { InteractiveTableComponent } from './_components/interactive-table/interactive-table.component';
-import { DynamicFormPersonComponent } from './_components/dynamic-form-person/dynamic-form-person.component';
-import { DynamicFormComponent } from './_components/dynamic-form/dynamic-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PersonFormComponent } from './_components/person-form/person-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InteractiveTableComponent,
-    DynamicFormPersonComponent,
-    DynamicFormComponent
+    PersonFormComponent,
   ],
   imports: [
     BrowserModule,
