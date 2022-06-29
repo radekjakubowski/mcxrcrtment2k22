@@ -4,7 +4,6 @@ import { PersonController } from './../../_backend/_controller/person-controller
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from '../../_models/person';
-import { PersonFormGroupService } from '../../_services/person-form-group.service';
 import { take } from 'rxjs/operators';
 
 @Component({
@@ -19,8 +18,8 @@ export class InteractiveTableComponent implements OnInit {
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
   private people: Person[] = mockData;
-  private restrictedFields = ['id'];
-  //make use of text control
+  private readonly restrictedFields = ['id'];
+
 
   constructor(private peopleController: PersonController) {
     this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
@@ -67,6 +66,10 @@ export class InteractiveTableComponent implements OnInit {
 
     this.people.splice(index, 1);
     this.ngOnInit();
+  }
+
+  public checkForChanges(): boolean {
+    return !(!!this.personFormComponents?.find(c => c.changesMade));
   }
 }
 

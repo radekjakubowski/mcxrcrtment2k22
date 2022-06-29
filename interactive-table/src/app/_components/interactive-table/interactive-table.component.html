@@ -20,13 +20,13 @@
       appPersonForm
       *ngFor="let person of people$ | async"
       [controls]="this.personControls[person.id]"
-      [personId]="person.id"
+      [person]="person"
       (deleteHandler)="handlePersonDelete($event)">
     </tbody>
   </table>
 </div>
 <div class="panel-container">
   <button>Add</button>
-  <button>Save</button>
-  <button>Cancel</button>
+  <button [disabled]="checkForChanges()">Save</button>
+  <button [disabled]="checkForChanges()">Cancel</button>
 </div>
