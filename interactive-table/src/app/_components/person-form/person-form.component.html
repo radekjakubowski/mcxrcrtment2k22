@@ -3,7 +3,7 @@
     <input [type]="control.controlType" [value]="control.value" [disabled]="control.disabled" (input)="patchControlValue(control.key, $event)">
   </td>
   <td>
-    <button (click)="deletePerson()">Delete</button>
+    <button (click)="deletePerson()" class="btn btn-danger">Delete</button>
   </td>
 </tr>
 

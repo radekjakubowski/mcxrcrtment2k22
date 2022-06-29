@@ -29,7 +29,7 @@
   </table>
 </div>
 <div class="panel-container">
-  <button (click)="addNewPerson()">Add</button>
-  <button [disabled]="checkForChanges()" (click)="saveChanges()">Save</button>
-  <button [disabled]="checkForChanges()" (click)="reloadData()">Cancel</button>
+  <button (click)="addNewPerson()" class="btn btn-primary">Add</button>
+  <button [disabled]="checkForChanges()" (click)="saveChanges()" class="btn btn-secondary">Save</button>
+  <button [disabled]="checkForChanges()" (click)="reloadData()" class="btn btn-danger">Cancel</button>
 </div>

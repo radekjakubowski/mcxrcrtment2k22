@@ -83,6 +83,7 @@ export class InteractiveTableComponent implements OnInit {
   }
 
   public reloadData() {
+    this.personFormComponents.forEach(pfc => pfc.changesMade = false);
     this.ngOnInit();
   }
 
