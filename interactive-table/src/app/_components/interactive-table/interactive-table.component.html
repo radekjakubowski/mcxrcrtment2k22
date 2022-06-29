@@ -11,10 +11,22 @@
         <th>Town</th>
         <th>Phone number</th>
         <th>Date of birth</th>
-        <th>Age</th>
+        <th class="age">Age</th>
+        <th>Delete</th>
       </tr>
     </thead>
-    <tbody appPersonForm *ngFor="let person of people$ | async" [controls]="this.personControls[person.id]">
+    <tbody
+      #personForm
+      appPersonForm
+      *ngFor="let person of people$ | async"
+      [controls]="this.personControls[person.id]"
+      [personId]="person.id"
+      (deleteHandler)="handlePersonDelete($event)">
     </tbody>
   </table>
+</div>
+<div class="panel-container">
+  <button>Add</button>
+  <button>Save</button>
+  <button>Cancel</button>
 </div>

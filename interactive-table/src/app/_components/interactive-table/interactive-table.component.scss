@@ -8,4 +8,15 @@
   table > tr > th {
     padding: 20px;
   }
+
+  table > tbody > tr > td > input {
+    width: 30px;
+  }
+}
+
+.panel-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
 }

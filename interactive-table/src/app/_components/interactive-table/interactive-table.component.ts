@@ -1,6 +1,7 @@
+import { PersonFormComponent } from './../person-form/person-form.component';
 import { ControlBase } from './../../_utilitites/control-base';
 import { PersonController } from './../../_backend/_controller/person-controller.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from '../../_models/person';
 import { PersonFormGroupService } from '../../_services/person-form-group.service';
@@ -11,6 +12,9 @@ import { PersonFormGroupService } from '../../_services/person-form-group.servic
   styleUrls: ['./interactive-table.component.scss']
 })
 export class InteractiveTableComponent implements OnInit {
+  @ViewChildren('personForm')
+  personFormComponents: QueryList<PersonFormComponent>;
+
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
   private people: Person[] = mockData;
@@ -19,10 +23,10 @@ export class InteractiveTableComponent implements OnInit {
 
   constructor(private peopleController: PersonController, personFormGroupService: PersonFormGroupService) {
     this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
-    this.personControls = this.prepareFormFields(this.people);
   }
 
   ngOnInit(): void {
+    this.personControls = this.prepareFormFields(this.people);
   }
 
   private prepareFormFields(people: Person[]): Record<string, ControlBase<string>[]> {
@@ -53,6 +57,14 @@ export class InteractiveTableComponent implements OnInit {
 
 
     return allFormControls;
+  }
+
+  public handlePersonDelete($event) {
+    let personToDelete = this.people.find(person => person.id === $event);
+    let index = this.people.indexOf(personToDelete);
+
+    this.people.splice(index, 1);
+    this.ngOnInit();
   }
 }
 
