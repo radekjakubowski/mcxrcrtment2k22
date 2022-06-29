@@ -5,6 +5,7 @@ import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Person } from '../../_models/person';
 import { PersonFormGroupService } from '../../_services/person-form-group.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-interactive-table',
@@ -21,11 +22,12 @@ export class InteractiveTableComponent implements OnInit {
   private restrictedFields = ['id'];
   //make use of text control
 
-  constructor(private peopleController: PersonController, personFormGroupService: PersonFormGroupService) {
+  constructor(private peopleController: PersonController) {
     this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
   }
 
   ngOnInit(): void {
+    this.people$.pipe(take(1)).subscribe(people => this.people = people);
     this.personControls = this.prepareFormFields(this.people);
   }
 
@@ -41,7 +43,7 @@ export class InteractiveTableComponent implements OnInit {
           {
             key: `${prop}`,
             value: person[prop],
-            controlType: 'textbox',
+            controlType: `${prop}` === 'dateOfBirth' ? 'date' : 'textbox',
             disabled: `${prop}` === 'age' ? true : false,
           }
         )
@@ -71,28 +73,28 @@ export class InteractiveTableComponent implements OnInit {
 const mockData: Person[] = [
   {
     id: 'xyz1',
-    firstName: 'xyz',
-    lastName: 'xyz',
-    streetName: 'xyz',
-    houseNumber: 'xyz',
-    apartmentNumber: 'xyz',
-    postalCode: 'xyz',
-    town: 'xyz',
+    firstName: 'asdasd',
+    lastName: 'asz',
+    streetName: 'qwez',
+    houseNumber: 'xqweqwe',
+    apartmentNumber: 'xyqweqwe',
+    postalCode: 'xyasdasz',
+    town: 'xZzxcyz',
     phoneNumber: 'xyz',
-    dateOfBirth: 'xyz',
-    age: 22,
+    dateOfBirth: '2005-06-07',
+    age: 24,
   },
   {
     id: 'xyz2',
-    firstName: 'xyz',
-    lastName: 'xyz',
-    streetName: 'xyz',
-    houseNumber: 'xyz',
+    firstName: 'xqweqwz',
+    lastName: 'xqrqwryz',
+    streetName: 'xqwrqwr',
+    houseNumber: 'xqwrqwrz',
     apartmentNumber: 'xyz',
     postalCode: 'xyz',
     town: 'xyz',
     phoneNumber: 'xyz',
-    dateOfBirth: 'xyz',
+    dateOfBirth: '2005-06-07',
     age: 22,
   },
   {
@@ -105,7 +107,7 @@ const mockData: Person[] = [
     postalCode: 'xyz',
     town: 'xyz',
     phoneNumber: 'xyz',
-    dateOfBirth: 'xyz',
+    dateOfBirth: '2005-06-07',
     age: 22,
   },
   {
@@ -118,7 +120,7 @@ const mockData: Person[] = [
     postalCode: 'xyz',
     town: 'xyz',
     phoneNumber: 'xyz',
-    dateOfBirth: 'xyz',
+    dateOfBirth: '2005-06-07',
     age: 22,
   }
 ]
