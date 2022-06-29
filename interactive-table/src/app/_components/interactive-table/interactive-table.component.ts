@@ -1,3 +1,5 @@
+import { CreatePersonComponent } from './../create-person/create-person.component';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PersonFormComponent } from './../person-form/person-form.component';
 import { ControlBase } from './../../_utilitites/control-base';
 import { PersonController } from './../../_backend/_controller/person-controller.service';
@@ -17,11 +19,11 @@ export class InteractiveTableComponent implements OnInit {
 
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
+  public personCreateModalRef: BsModalRef;
   private people: Person[] = mockData;
   private readonly restrictedFields = ['id'];
 
-
-  constructor(private peopleController: PersonController) {
+  constructor(private peopleController: PersonController, private modalService: BsModalService) {
     this.people$ =  /* of(this.peopleController.getAll()); */ of(mockData);
   }
 
@@ -70,6 +72,10 @@ export class InteractiveTableComponent implements OnInit {
 
   public checkForChanges(): boolean {
     return !(!!this.personFormComponents?.find(c => c.changesMade));
+  }
+
+  public addNewPerson(): void {
+    this.personCreateModalRef = this.modalService.show(CreatePersonComponent);
   }
 }
 

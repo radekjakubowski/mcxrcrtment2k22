@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">Create person</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="createPersonForm">
+      <div class="form-control">
+        <label for="firstName">First name</label>
+        <input type="text" formControlName="firstName">
+      </div>
+      <div class="form-control">
+        <label for="lastName">Last name</label>
+        <input type="text" formControlName="lastName">
+      </div>
+      <div class="form-control">
+        <label for="streetName">Street name</label>
+        <input type="text" formControlName="streetName">
+      </div>
+      <div class="form-control">
+        <label for="houseNumber">House number</label>
+        <input type="text" formControlName="houseNumber">
+      </div>
+      <div class="form-control">
+        <label for="apartmentNumber">Apartment number</label>
+        <input type="text" formControlName="apartmentNumber">
+      </div>
+      <div class="form-control">
+        <label for="postalCode">Postal code</label>
+        <input type="text" formControlName="postalCode">
+      </div>
+      <div class="form-control">
+        <label for="town">Town</label>
+        <input type="text" formControlName="town">
+      </div>
+      <div class="form-control">
+        <label for="phoneNumber">Phone number</label>
+        <input type="text" formControlName="phoneNumber">
+      </div>
+      <div class="form-control">
+        <label for="dateOfBirth">Date of birth</label>
+        <input type="date" formControlName="dateOfBirth">
+      </div>
+      <div class="form-control">
+        <label for="age">Age</label>
+        <input type="number" formControlName="age">
+      </div>
+    </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="createPerson()">Create</button>
+    <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Close</button>
+</div>
