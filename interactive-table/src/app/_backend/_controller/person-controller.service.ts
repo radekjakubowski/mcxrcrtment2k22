@@ -14,6 +14,7 @@ export class PersonController implements AbstractController<Person> {
   }
 
   public update(person: Person) {
+    this.recalculateAge(person);
     this.personRepository.update(person);
   }
 
@@ -23,5 +24,12 @@ export class PersonController implements AbstractController<Person> {
 
   public addNew(person: Person) {
     this.personRepository.add(person);
+  }
+
+  private recalculateAge(person: Person): void {
+    let timeDiff = Math.abs(Date.now() - new Date(person.dateOfBirth).getTime());
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+
+    person.age = age;
   }
 }
