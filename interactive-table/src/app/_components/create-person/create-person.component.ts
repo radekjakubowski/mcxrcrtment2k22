@@ -62,7 +62,7 @@ export class CreatePersonComponent implements OnInit {
     return !!control?.errors && control.touched;
   }
 
-  private setAgeAccordingly(date: string) {
+  private setAgeAccordingly(date: string): void {
     const personBirthDate: Date = new Date(date);
     let timeDiff: number = Math.abs(Date.now() - personBirthDate.getTime());
     let age: number = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
