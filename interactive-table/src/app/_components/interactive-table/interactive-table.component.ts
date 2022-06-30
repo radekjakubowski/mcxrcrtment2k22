@@ -89,6 +89,11 @@ export class InteractiveTableComponent implements OnInit {
         });
 
         editedPeople.forEach((person: Person) => {
+          if (new Date(person.dateOfBirth) > new Date()) {
+            window.alert(`People can't be born in future!`);
+            return;
+          }
+
           this.peopleController.update(person);
         })
 

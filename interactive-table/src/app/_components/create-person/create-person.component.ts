@@ -13,12 +13,14 @@ import { FieldValidatorService } from '../../_services/field-validator.service';
 export class CreatePersonComponent implements OnInit {
   public createPersonForm: FormGroup;
   public createdPersonEmitter: EventEmitter<Person> = new EventEmitter();
+  public todaysDate: string;
 
   constructor(public modalRef: BsModalRef, private rss: RandomStringService, private validationService: FieldValidatorService) {
     this.createForm();
    }
 
   ngOnInit(): void {
+    this.todaysDate = new Date().toISOString().split('T')[0];
     this.createPersonForm.get('dateOfBirth').valueChanges.subscribe((date: string) => this.setAgeAccordingly(date))
   }
 
@@ -39,6 +41,12 @@ export class CreatePersonComponent implements OnInit {
 
   public createPerson(): void {
     const formPerson: Person = this.createPersonForm.getRawValue();
+
+    if (new Date(formPerson.dateOfBirth) > new Date()) {
+      window.alert("People can't be born in future!");
+      this.createPersonForm.get('age').patchValue(null);
+      return;
+    }
     const newPerson: Person = {...formPerson, id: this.rss.randomString(10) }
 
     this.createdPersonEmitter.emit(newPerson);

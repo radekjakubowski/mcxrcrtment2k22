@@ -30,6 +30,8 @@ export class PersonController implements AbstractController<Person> {
     let timeDiff = Math.abs(Date.now() - new Date(person.dateOfBirth).getTime());
     let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
 
-    person.age = age;
+    if (age) {
+      person.age = age;
+    }
   }
 }

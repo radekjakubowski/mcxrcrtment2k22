@@ -29,7 +29,7 @@ import { ShortAnswerComponent } from './_components/short-answer/short-answer.co
   providers: [
     CookieService,
     PersonFormGroupService,
-    BsModalService
+    BsModalService,
   ],
   bootstrap: [AppComponent]
 })

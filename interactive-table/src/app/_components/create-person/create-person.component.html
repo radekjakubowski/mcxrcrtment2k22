@@ -47,7 +47,7 @@
       </div>
       <div class="form-control">
         <label for="dateOfBirth">Date of birth</label>
-        <input type="date" formControlName="dateOfBirth">
+        <input type="date" formControlName="dateOfBirth" [max]="todaysDate">
         <p class='field-error' *ngIf="shouldDisplayError('dateOfBirth')">{{ getValidationError('dateOfBirth') }}</p>
       </div>
       <div class="form-control">

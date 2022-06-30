@@ -7,6 +7,7 @@
       [value]="control.value"
       [attr.disabled]="control.disabled ? true : null"
       [formControlName]="control.key"
+      [max]="control.controlType === 'date' ? todaysDate : null"
     >
     <p class='field-error' *ngIf="!!userForm.get(control.key).errors">{{ validationService.getValidationError(userForm.get(control.key), control.key) }}</p>
   </td>

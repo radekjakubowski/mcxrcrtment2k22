@@ -20,10 +20,12 @@ export class PersonFormComponent implements OnInit {
   public person: Person;
   public changesMade = false;
   public deleteHandler: EventEmitter<string> = new EventEmitter();
+  public todaysDate: string;
 
   constructor(private pfgs: PersonFormGroupService, public validationService: FieldValidatorService) { }
 
   ngOnInit(): void {
+    this.todaysDate = new Date().toISOString().split('T')[0];
     this.createForm();
 
     this.userForm.valueChanges.pipe(distinctUntilChanged(), debounceTime(400)).subscribe((val: Partial<Person>) => {
