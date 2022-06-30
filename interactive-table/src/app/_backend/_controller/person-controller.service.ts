@@ -13,16 +13,16 @@ export class PersonController implements AbstractController<Person> {
     return this.personRepository.getAll();
   }
 
-  public update(person: Person) {
+  public update(person: Person): void {
     this.recalculateAge(person);
     this.personRepository.update(person);
   }
 
-  public delete(id: any) {
+  public delete(id: string): void {
     this.personRepository.delete(id);
   }
 
-  public addNew(person: Person) {
+  public addNew(person: Person): void {
     this.personRepository.add(person);
   }
 
