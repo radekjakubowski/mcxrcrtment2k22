@@ -1,64 +1,65 @@
 <div class="modal-header">
-    <h4 class="modal-title pull-left">Create person</h4>
-    <button type="button" class="close pull-right btn btn-danger" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">×</span>
-    </button>
+  <h4 class="modal-title pull-left">Create person</h4>
+  <button type="button" class="close pull-right btn btn-danger" aria-label="Close" (click)="modalRef.hide()">
+    <span aria-hidden="true">×</span>
+  </button>
 </div>
 <div class="modal-body">
-    <form [formGroup]="createPersonForm">
-      <div class="form-control">
-        <label for="firstName">First name</label>
-        <input type="text" formControlName="firstName">
-        <p class='field-error' *ngIf="shouldDisplayError('firstName')">{{ getValidationError('firstName') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="lastName">Last name</label>
-        <input type="text" formControlName="lastName">
-        <p class='field-error' *ngIf="shouldDisplayError('lastName')">{{ getValidationError('lastName') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="streetName">Street name</label>
-        <input type="text" formControlName="streetName">
-        <p class='field-error' *ngIf="shouldDisplayError('streetName')">{{ getValidationError('streetName') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="houseNumber">House number</label>
-        <input type="text" formControlName="houseNumber">
-        <p class='field-error' *ngIf="shouldDisplayError('houseNumber')">{{ getValidationError('houseNumber') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="apartmentNumber">Apartment number</label>
-        <input type="text" formControlName="apartmentNumber">
-      </div>
-      <div class="form-control">
-        <label for="postalCode">Postal code</label>
-        <input type="text" formControlName="postalCode">
-        <p class='field-error' *ngIf="shouldDisplayError('postalCode')">{{ getValidationError('postalCode') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="town">Town</label>
-        <input type="text" formControlName="town">
-        <p class='field-error' *ngIf="shouldDisplayError('town')">{{ getValidationError('town') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="phoneNumber">Phone number</label>
-        <input type="text" formControlName="phoneNumber">
-        <p class='field-error' *ngIf="shouldDisplayError('phoneNumber')">{{ getValidationError('phoneNumber') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="dateOfBirth">Date of birth</label>
-        <input type="date" formControlName="dateOfBirth" [max]="todaysDate">
-        <p class='field-error' *ngIf="shouldDisplayError('dateOfBirth')">{{ getValidationError('dateOfBirth') }}</p>
-      </div>
-      <div class="form-control">
-        <label for="age">Age</label>
-        <input type="number" formControlName="age">
-        <p class='field-error' *ngIf="shouldDisplayError('age')">{{ getValidationError('age') }}</p>
-      </div>
-    </form>
-    <p class="mt-5 text-danger" *ngIf="createPersonForm.invalid">* red bordered fields are required!</p>
+  <form [formGroup]="createPersonForm">
+    <div class="form-control">
+      <label for="firstName">First name</label>
+      <input type="text" formControlName="firstName">
+      <p class='field-error' *ngIf="shouldDisplayError('firstName')">{{ getValidationError('firstName') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="lastName">Last name</label>
+      <input type="text" formControlName="lastName">
+      <p class='field-error' *ngIf="shouldDisplayError('lastName')">{{ getValidationError('lastName') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="streetName">Street name</label>
+      <input type="text" formControlName="streetName">
+      <p class='field-error' *ngIf="shouldDisplayError('streetName')">{{ getValidationError('streetName') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="houseNumber">House number</label>
+      <input type="text" formControlName="houseNumber">
+      <p class='field-error' *ngIf="shouldDisplayError('houseNumber')">{{ getValidationError('houseNumber') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="apartmentNumber">Apartment number</label>
+      <input type="text" formControlName="apartmentNumber">
+    </div>
+    <div class="form-control">
+      <label for="postalCode">Postal code</label>
+      <input type="text" formControlName="postalCode">
+      <p class='field-error' *ngIf="shouldDisplayError('postalCode')">{{ getValidationError('postalCode') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="town">Town</label>
+      <input type="text" formControlName="town">
+      <p class='field-error' *ngIf="shouldDisplayError('town')">{{ getValidationError('town') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="phoneNumber">Phone number</label>
+      <input type="text" formControlName="phoneNumber">
+      <p class='field-error' *ngIf="shouldDisplayError('phoneNumber')">{{ getValidationError('phoneNumber') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="dateOfBirth">Date of birth</label>
+      <input type="date" formControlName="dateOfBirth" [max]="todaysDate">
+      <p class='field-error' *ngIf="shouldDisplayError('dateOfBirth')">{{ getValidationError('dateOfBirth') }}</p>
+    </div>
+    <div class="form-control">
+      <label for="age">Age</label>
+      <input type="number" formControlName="age">
+      <p class='field-error' *ngIf="shouldDisplayError('age')">{{ getValidationError('age') }}</p>
+    </div>
+  </form>
+  <p class="mt-5 text-danger" *ngIf="createPersonForm.invalid">* red bordered fields are required!</p>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="createPerson()" [disabled]="createPersonForm.invalid">Create</button>
-    <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Close</button>
+  <button type="button" class="btn btn-primary" (click)="createPerson()"
+    [disabled]="createPersonForm.invalid">Create</button>
+  <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Close</button>
 </div>

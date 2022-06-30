@@ -1,19 +1,19 @@
 <tr>
   <ng-container [formGroup]="userForm">
-  <td *ngFor="let control of controls" class="person-row">
-    <input
-      class='input'
-      [type]="control.controlType"
-      [value]="control.value"
-      [attr.disabled]="control.disabled ? true : null"
-      [formControlName]="control.key"
-      [max]="control.controlType === 'date' ? todaysDate : null"
-    >
-    <p class='field-error' *ngIf="!!userForm.get(control.key).errors">{{ validationService.getValidationError(userForm.get(control.key), control.key) }}</p>
-  </td>
+    <td *ngFor="let control of controls" class="person-row">
+      <input
+        class='input'
+        [type]="control.controlType"
+        [value]="control.value"
+        [attr.disabled]="control.disabled ? true : null"
+        [formControlName]="control.key"
+        [max]="control.controlType === 'date' ? todaysDate : null"
+      >
+      <p class='field-error' *ngIf="!!userForm.get(control.key).errors">{{
+        validationService.getValidationError(userForm.get(control.key), control.key) }}</p>
+    </td>
   </ng-container>
   <td>
     <button (click)="deletePerson()" class="btn btn-danger">Delete</button>
   </td>
 </tr>
-
