@@ -30,7 +30,7 @@ export class CreatePersonComponent implements OnInit {
       apartmentNumber: new FormControl(''),
       postalCode: new FormControl('', Validators.required),
       town: new FormControl('', Validators.required),
-      phoneNumber: new FormControl('', Validators.required),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^[0-9]*$'))]),
       dateOfBirth: new FormControl('', Validators.required),
       age: new FormControl('', Validators.required),
     })
