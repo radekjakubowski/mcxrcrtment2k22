@@ -17,14 +17,14 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./interactive-table.component.scss']
 })
 export class InteractiveTableComponent implements OnInit {
-  @ViewChildren('personForm')
-  private personFormComponents: QueryList<PersonFormComponent>;
-
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
+  public people: Person[];
+
+  @ViewChildren('personForm')
+  private personFormComponents: QueryList<PersonFormComponent>;
   private personCreateModalRef: BsModalRef;
   private shortAnswerModalRef: BsModalRef;
-  public people: Person[];
   private readonly restrictedFields = ['id'];
 
   constructor(private peopleController: PersonController, private modalService: BsModalService) {

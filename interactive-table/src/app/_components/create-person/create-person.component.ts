@@ -24,21 +24,6 @@ export class CreatePersonComponent implements OnInit {
     this.createPersonForm.get('dateOfBirth').valueChanges.subscribe((date: string) => this.setAgeAccordingly(date))
   }
 
-  private createForm(): void {
-    this.createPersonForm = new FormGroup({
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', Validators.required),
-      streetName: new FormControl('', Validators.required),
-      houseNumber: new FormControl('', Validators.required),
-      apartmentNumber: new FormControl(''),
-      postalCode: new FormControl('', Validators.required),
-      town: new FormControl('', Validators.required),
-      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^[0-9]*$'))]),
-      dateOfBirth: new FormControl('', Validators.required),
-      age: new FormControl('', Validators.required),
-    })
-  }
-
   public createPerson(): void {
     const formPerson: Person = this.createPersonForm.getRawValue();
 
@@ -60,6 +45,21 @@ export class CreatePersonComponent implements OnInit {
   public shouldDisplayError(controlName: string): boolean {
     const control = this.createPersonForm.get(controlName);
     return !!control?.errors && control.touched;
+  }
+
+  private createForm(): void {
+    this.createPersonForm = new FormGroup({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', Validators.required),
+      streetName: new FormControl('', Validators.required),
+      houseNumber: new FormControl('', Validators.required),
+      apartmentNumber: new FormControl(''),
+      postalCode: new FormControl('', Validators.required),
+      town: new FormControl('', Validators.required),
+      phoneNumber: new FormControl('', [Validators.required, Validators.pattern(new RegExp('^[0-9]*$'))]),
+      dateOfBirth: new FormControl('', Validators.required),
+      age: new FormControl('', Validators.required),
+    })
   }
 
   private setAgeAccordingly(date: string): void {
