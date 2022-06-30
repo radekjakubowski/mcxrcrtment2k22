@@ -29,8 +29,6 @@ export class PersonFormComponent implements OnInit {
     this.createForm();
 
     this.userForm.valueChanges.pipe(distinctUntilChanged(), debounceTime(400)).subscribe((val: Partial<Person>) => {
-      this.userForm.updateValueAndValidity();
-
       const currentPersonValue: Partial<Person> = val;
       const initialPersonValue: Partial<Person> = {...this.person};
       delete initialPersonValue['id'];
