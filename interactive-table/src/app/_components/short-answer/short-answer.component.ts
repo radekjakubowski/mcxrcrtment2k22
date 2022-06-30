@@ -7,18 +7,22 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
   styleUrls: ['./short-answer.component.scss']
 })
 export class ShortAnswerComponent implements OnInit {
+  public question: string;
+  public description: string;
   public answer = new EventEmitter<boolean>();
 
-  constructor(private bsModalRef: BsModalRef) { }
+  constructor(public modalRef: BsModalRef) { }
 
   ngOnInit(): void {
   }
 
-  yes() {
+  public yes(): void {
     this.answer.emit(true);
+    this.modalRef.hide();
   }
 
-  no() {
+  public no(): void {
     this.answer.emit(false);
+    this.modalRef.hide();
   }
 }

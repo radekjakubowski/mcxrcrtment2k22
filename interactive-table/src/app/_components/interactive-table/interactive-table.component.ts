@@ -1,3 +1,4 @@
+import { ShortAnswerComponent } from './../short-answer/short-answer.component';
 import { FieldValidatorService } from './../../_services/field-validator.service';
 import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { CreatePersonComponent } from './../create-person/create-person.component';
@@ -17,11 +18,12 @@ import { take } from 'rxjs/operators';
 })
 export class InteractiveTableComponent implements OnInit {
   @ViewChildren('personForm')
-  personFormComponents: QueryList<PersonFormComponent>;
+  private personFormComponents: QueryList<PersonFormComponent>;
 
   public people$: Observable<Person[]> | undefined;
   public personControls: Record<string, ControlBase<string>[]>;
-  public personCreateModalRef: BsModalRef;
+  private personCreateModalRef: BsModalRef;
+  private shortAnswerModalRef: BsModalRef;
   public people: Person[];
   private readonly restrictedFields = ['id'];
 
@@ -29,9 +31,97 @@ export class InteractiveTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.people$ = of(this.peopleController.getAll());  /* of(mockData) */;
-    this.people$.pipe(take(1)).subscribe(people => this.people = people);
+    this.people$ = of(this.peopleController.getAll());
+    this.people$.pipe(take(1)).subscribe((people: Person[]) => this.people = people);
     this.personControls = this.prepareFormFields(this.people);
+  }
+
+  public handlePersonDelete(id: string): void {
+    this.shortAnswerModalRef = this.modalService.show(ShortAnswerComponent, { initialState: { question: 'Do you want to delete this person?' }});
+
+    this.shortAnswerModalRef.content?.answer?.pipe(take(1)).subscribe((answer: boolean) => {
+      if (answer) {
+        this.peopleController.delete(id);
+        this.ngOnInit();
+      }
+    })
+  }
+
+  public checkForChanges(): boolean {
+    return !(!!this.personFormComponents?.find((pfc: PersonFormComponent) => pfc.changesMade));
+  }
+
+  public anyFormInvalid(): boolean {
+    return !!this.personFormComponents?.find((pfc: PersonFormComponent) => pfc.userForm.invalid);
+  }
+
+  public addNewPerson(): void {
+    this.personCreateModalRef = this.modalService.show(CreatePersonComponent);
+
+    this.personCreateModalRef?.content?.createdPersonEmitter.pipe(take(1)).subscribe((person: Person) => {
+      this.peopleController.addNew(person);
+
+      this.ngOnInit();
+    })
+  }
+
+  public handleCancel(): void {
+    this.shortAnswerModalRef = this.modalService.show(ShortAnswerComponent, { initialState: { question: 'Would you like to cancel?', description: 'If yes all changes made to the table will be lost' }});
+
+    this.shortAnswerModalRef?.content?.answer.pipe(take(1)).subscribe((answer: boolean) => {
+      if (answer) {
+        this.personFormComponents.forEach((pfc: PersonFormComponent) => pfc.changesMade = false);
+        this.ngOnInit();
+      }
+    })
+  }
+
+  public handleSave(): void {
+    this.shortAnswerModalRef = this.modalService.show(ShortAnswerComponent, { initialState: { question: 'Would you like to save?', description: 'If yes all data will be saved and table will refresh itself' }});
+
+    this.shortAnswerModalRef?.content?.answer.pipe(take(1)).subscribe((answer: boolean) => {
+      if (answer) {
+        const editedPeople: Person[] = this.personFormComponents.filter((pfc: PersonFormComponent) => pfc.changesMade).map((pfc: PersonFormComponent) => {
+          const updatedValue = pfc.userForm.value;
+          const id = pfc.person.id;
+
+          return {...updatedValue, id} as Person;
+        });
+
+        editedPeople.forEach((person: Person) => {
+          this.peopleController.update(person);
+        })
+
+        this.personFormComponents.forEach((pfc: PersonFormComponent) => pfc.changesMade = false);
+        this.ngOnInit();
+      }
+    })
+  }
+
+  private determineInputType(controlName: string): string {
+    if (controlName === 'dateOfBirth') {
+      return 'date'
+    }
+
+    return 'textbox';
+  }
+
+  private determineInputDisabledState(controlName: string): boolean {
+    if (controlName === 'age') {
+      return true;
+    }
+
+    return false;
+  }
+
+  private determineInputValidators(controlName: string): AbstractValidator[] {
+    const validators: AbstractValidator[] = [];
+
+    if (controlName !== 'apartmentNumber') {
+      validators.push({name: 'required', value: 'true'});
+    }
+
+    return validators;
   }
 
   private prepareFormFields(people: Person[]): Record<string, ControlBase<string>[]> {
@@ -63,79 +153,6 @@ export class InteractiveTableComponent implements OnInit {
       controls = null;
     })
 
-
     return allFormControls;
   }
-
-  public handlePersonDelete($event) {
-    this.peopleController.delete($event);
-
-    this.ngOnInit();
-  }
-
-  public checkForChanges(): boolean {
-    return !(!!this.personFormComponents?.find(c => c.changesMade));
-  }
-
-  public anyFormInvalid(): boolean {
-    return !!this.personFormComponents?.find(c => c.userForm.invalid);
-  }
-
-  public addNewPerson(): void {
-    this.personCreateModalRef = this.modalService.show(CreatePersonComponent);
-
-    this.personCreateModalRef?.content?.createdPersonEmitter.pipe(take(1)).subscribe(person => {
-      this.peopleController.addNew(person);
-
-      this.ngOnInit();
-    })
-  }
-
-  public reloadData() {
-    this.personFormComponents.forEach(pfc => pfc.changesMade = false);
-    this.ngOnInit();
-  }
-
-  public saveChanges() {
-    const editedPeople: Person[] = this.personFormComponents.filter(pfc => pfc.changesMade).map(pfc => {
-      const updatedValue = pfc.userForm.value;
-      const id = pfc.person.id;
-
-      return {...updatedValue, id} as Person;
-    });
-
-    editedPeople.forEach(person => {
-      this.peopleController.update(person);
-    })
-
-    this.personFormComponents.forEach(pfc => pfc.changesMade = false);
-    this.ngOnInit();
-  }
-
-  private determineInputType(controlName: string): string {
-    if (controlName === 'dateOfBirth') {
-      return 'date'
-    }
-
-    return 'textbox';
-  }
-
-  private determineInputDisabledState(controlName: string): boolean {
-    if (controlName === 'age') {
-      return true;
-    }
-
-    return false;
-  }
-
-  determineInputValidators(controlName: string): AbstractValidator[] {
-    const validators: AbstractValidator[] = [];
-
-    if (controlName !== 'apartmentNumber') {
-      validators.push({name: 'required', value: 'true'});
-    }
-
-    return validators;
-  }
 }
-

@@ -1,12 +1,11 @@
 import { FieldValidatorService } from './../../_services/field-validator.service';
-import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { PersonFormGroupService } from './../../_services/person-form-group.service';
 import { FormGroup } from '@angular/forms';
 import { ControlBase } from './../../_utilitites/control-base';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Person } from '../../_models/person';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { isEqual, unset } from 'lodash';
+import { isEqual } from 'lodash';
 
 @Component({
   selector: '[appPersonForm]',
@@ -38,11 +37,11 @@ export class PersonFormComponent implements OnInit {
     });
   }
 
-  createForm() {
+  public createForm(): void {
     this.userForm = this.pfgs.toFormGroup(this.controls);
   }
 
-  deletePerson() {
+  public deletePerson(): void {
     this.deleteHandler.emit(this.person.id);
   }
 }

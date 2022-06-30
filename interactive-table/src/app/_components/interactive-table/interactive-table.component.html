@@ -19,7 +19,7 @@
         <th>Town</th>
         <th>Phone number</th>
         <th>Date of birth</th>
-        <th class="age">Age</th>
+        <th>Age</th>
         <th></th>
       </tr>
     </thead>
@@ -37,7 +37,7 @@
 </div>
 <div class="panel-container">
   <button (click)="addNewPerson()" class="btn btn-primary">Add</button>
-  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="saveChanges()" class="btn btn-secondary">Save</button>
-  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="reloadData()" class="btn btn-danger">Cancel</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleSave()" class="btn btn-secondary">Save</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleCancel()" class="btn btn-danger">Cancel</button>
 </div>
 </div>

@@ -36,7 +36,7 @@ export class CreatePersonComponent implements OnInit {
     })
   }
 
-  public createPerson() {
+  public createPerson(): void {
     const formPerson: Person = this.createPersonForm.value;
     const newPerson: Person = {...formPerson, id: this.rss.randomString(10) }
 
@@ -44,11 +44,11 @@ export class CreatePersonComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  public getValidationError(controlName: string) {
+  public getValidationError(controlName: string): string {
     return this.validationService.getValidationError(this.createPersonForm.get(controlName), controlName);
   }
 
-  public shouldDisplayError(controlName: string) {
+  public shouldDisplayError(controlName: string): boolean {
     const control = this.createPersonForm.get(controlName);
     return !!control?.errors && control.touched;
   }

@@ -7,7 +7,7 @@ import { AbstractRepository } from '../_abstractions/abstract-repository';
   providedIn: 'root'
 })
 export class PersonRepository implements AbstractRepository<Person> {
-  private readonly cookieKey = 'abcdefghijklmnop'
+  private readonly cookieKey = 'radoslawjakubowskihadfunheremacrix2022recruitationassignment';
   private currentDataReference: Person[] = [];
 
   constructor(private cookieService: CookieService) {
@@ -23,7 +23,7 @@ export class PersonRepository implements AbstractRepository<Person> {
     }
   }
 
-  public delete(id: any): void {
+  public delete(id: string): void {
     this.currentDataReference = JSON.parse(this.cookieService.get(this.cookieKey));
 
     const personToDelete: Person | undefined = this.currentDataReference.find((p: Person) => p.id === id );
@@ -47,7 +47,6 @@ export class PersonRepository implements AbstractRepository<Person> {
     try {
       this.currentDataReference = JSON.parse(this.cookieService.get(this.cookieKey));
     } catch (e) {
-      console.error('no data');
     }
 
     return [...this.currentDataReference];
