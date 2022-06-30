@@ -37,7 +37,7 @@
 </div>
 <div class="panel-container">
   <button (click)="addNewPerson()" class="btn btn-primary">Add</button>
-  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleSave()" class="btn btn-secondary">Save</button>
-  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleCancel()" class="btn btn-danger">Cancel</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleSave()" class="btn btn-secondary" *ngIf="people.length">Save</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="handleCancel()" class="btn btn-danger" *ngIf="people.length">Cancel</button>
 </div>
 </div>
