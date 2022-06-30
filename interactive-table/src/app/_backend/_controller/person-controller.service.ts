@@ -27,8 +27,8 @@ export class PersonController implements AbstractController<Person> {
   }
 
   private recalculateAge(person: Person): void {
-    let timeDiff = Math.abs(Date.now() - new Date(person.dateOfBirth).getTime());
-    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    const timeDiff = Math.abs(Date.now() - new Date(person.dateOfBirth).getTime());
+    const age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
 
     if (age) {
       person.age = age;

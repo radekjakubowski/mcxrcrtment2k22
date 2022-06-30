@@ -63,9 +63,9 @@ export class CreatePersonComponent implements OnInit {
   }
 
   private setAgeAccordingly(date: string) {
-    const personBirthDate = new Date(date);
-    let timeDiff = Math.abs(Date.now() - personBirthDate.getTime());
-    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+    const personBirthDate: Date = new Date(date);
+    let timeDiff: number = Math.abs(Date.now() - personBirthDate.getTime());
+    let age: number = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
 
     if (age) {
       this.createPersonForm.get('age').patchValue(age);
