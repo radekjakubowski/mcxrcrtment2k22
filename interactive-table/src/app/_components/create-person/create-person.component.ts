@@ -19,6 +19,7 @@ export class CreatePersonComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.createPersonForm.get('dateOfBirth').valueChanges.subscribe((date: string) => this.setAgeAccordingly(date))
   }
 
   private createForm(): void {
@@ -51,5 +52,15 @@ export class CreatePersonComponent implements OnInit {
   public shouldDisplayError(controlName: string): boolean {
     const control = this.createPersonForm.get(controlName);
     return !!control?.errors && control.touched;
+  }
+
+  private setAgeAccordingly(date: string) {
+    const personBirthDate = new Date(date);
+    let timeDiff = Math.abs(Date.now() - personBirthDate.getTime());
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24))/365.25);
+
+    if (age) {
+      this.createPersonForm.get('age').patchValue(age);
+    }
   }
 }

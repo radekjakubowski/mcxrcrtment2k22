@@ -5,7 +5,7 @@
       class='input'
       [type]="control.controlType"
       [value]="control.value"
-      [disabled]="control.disabled"
+      [attr.disabled]="control.disabled ? true : null"
       [formControlName]="control.key"
     >
     <p class='field-error' *ngIf="!!userForm.get(control.key).errors">{{ validationService.getValidationError(userForm.get(control.key), control.key) }}</p>
