@@ -49,6 +49,6 @@
     </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary" (click)="createPerson()">Create</button>
+  <button type="button" class="btn btn-primary" (click)="createPerson()" [disabled]="createPersonForm.invalid">Create</button>
     <button type="button" class="btn btn-danger" (click)="modalRef.hide()">Close</button>
 </div>

@@ -1,6 +1,10 @@
+<div class="mobile">
+  <h5>Supported only for desktop screen</h5>
+</div>
+<div class="desktop">
 <img class="logo" src="assets/logo-macrix.png" alt="logo">
 <h2 class="title">Macrix recrutation assignment - R. Jakubowski</h2>
-<h3 *ngIf="!people.length" class="title mt-5">Looks like there's no people in the table. Please add some.</h3>
+<h4 *ngIf="!people.length" class="text-center mt-5">Looks like there's no people in the table. Please add some.</h4>
 <div class="table-container">
   <table *ngIf="people.length">
     <thead>
@@ -30,6 +34,7 @@
 </div>
 <div class="panel-container">
   <button (click)="addNewPerson()" class="btn btn-primary">Add</button>
-  <button [disabled]="checkForChanges()" (click)="saveChanges()" class="btn btn-secondary">Save</button>
-  <button [disabled]="checkForChanges()" (click)="reloadData()" class="btn btn-danger">Cancel</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="saveChanges()" class="btn btn-secondary">Save</button>
+  <button [disabled]="checkForChanges() || anyFormInvalid()" (click)="reloadData()" class="btn btn-danger">Cancel</button>
+</div>
 </div>

@@ -1,3 +1,4 @@
+import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { PersonFormGroupService } from './../../_services/person-form-group.service';
 import { FormGroup } from '@angular/forms';
 import { ControlBase } from './../../_utilitites/control-base';
@@ -26,6 +27,8 @@ export class PersonFormComponent implements OnInit {
     this.createForm();
 
     this.userForm.valueChanges.pipe(distinctUntilChanged(), debounceTime(400)).subscribe((val: Partial<Person>) => {
+      this.userForm.updateValueAndValidity();
+
       const currentPersonValue: Partial<Person> = val;
       const initialPersonValue: Partial<Person> = {...this.person};
       delete initialPersonValue['id'];

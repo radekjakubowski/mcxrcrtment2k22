@@ -8,3 +8,8 @@
 body {
   padding: 20px;
 }
+
+input.ng-invalid {
+  position: relative;
+  border: 1px solid red;
+}

@@ -1,3 +1,4 @@
+import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { CreatePersonComponent } from './../create-person/create-person.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PersonFormComponent } from './../person-form/person-form.component';
@@ -35,17 +36,20 @@ export class InteractiveTableComponent implements OnInit {
   private prepareFormFields(people: Person[]): Record<string, ControlBase<string>[]> {
     let allFormControls: Record<string, ControlBase<string>[]> = {};
 
-    people.forEach(person => {
+    people.forEach((person: Person) => {
       let controls: ControlBase<string>[] = [];
-      const props = Object.getOwnPropertyNames(person);
+      const props: string[] = Object.getOwnPropertyNames(person);
 
-      props.forEach(prop => {
+      props.forEach((prop: string) => {
+        const controlName: string = `${prop}`;
+
         let control: ControlBase<string> = new ControlBase<string>(
           {
-            key: `${prop}`,
-            value: person[prop],
-            controlType: `${prop}` === 'dateOfBirth' ? 'date' : 'textbox',
-            disabled: `${prop}` === 'age' ? true : false,
+            key: controlName,
+            value: person[controlName],
+            controlType: this.determineInputType(controlName),
+            disabled: this.determineInputDisabledState(controlName),
+            validators: this.determineInputValidators(controlName)
           }
         )
 
@@ -70,6 +74,10 @@ export class InteractiveTableComponent implements OnInit {
 
   public checkForChanges(): boolean {
     return !(!!this.personFormComponents?.find(c => c.changesMade));
+  }
+
+  public anyFormInvalid(): boolean {
+    return !!this.personFormComponents?.find(c => c.userForm.invalid);
   }
 
   public addNewPerson(): void {
@@ -101,6 +109,32 @@ export class InteractiveTableComponent implements OnInit {
 
     this.personFormComponents.forEach(pfc => pfc.changesMade = false);
     this.ngOnInit();
+  }
+
+  private determineInputType(controlName: string): string {
+    if (controlName === 'dateOfBirth') {
+      return 'date'
+    }
+
+    return 'textbox';
+  }
+
+  private determineInputDisabledState(controlName: string): boolean {
+    if (controlName === 'age') {
+      return true;
+    }
+
+    return false;
+  }
+
+  determineInputValidators(controlName: string): AbstractValidator[] {
+    const validators: AbstractValidator[] = [];
+
+    if (controlName !== 'apartmentNumber') {
+      validators.push({name: 'required', value: 'true'});
+    }
+
+    return validators;
   }
 }
 

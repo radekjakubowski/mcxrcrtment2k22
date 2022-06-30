@@ -1,6 +1,6 @@
 import { ControlBase } from './../_utilitites/control-base';
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class PersonFormGroupService {
@@ -10,7 +10,12 @@ export class PersonFormGroupService {
     const group: any = {};
 
     controls.forEach(control => {
-      group[control.key] = new FormControl(control.value || '');
+      let controlToAdd = new FormControl(control.value || '');
+      if (control.validators.find(v => v.name === 'required' && v.value === 'true')) {
+        controlToAdd.setValidators(Validators.required);
+      }
+
+      group[control.key] = controlToAdd;
     });
 
     return new FormGroup(group);
