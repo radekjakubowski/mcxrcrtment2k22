@@ -10,6 +10,10 @@ export class FieldValidatorService {
       return `${fieldName.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })} is required`;
     }
 
+    if (formControl.errors['pattern']) {
+      return `Numbers only`;
+    }
+
     return '';
   }
 }

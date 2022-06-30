@@ -121,6 +121,10 @@ export class InteractiveTableComponent implements OnInit {
       validators.push({name: 'required', value: 'true'});
     }
 
+    if (controlName === 'phoneNumber') {
+      validators.push({name: 'regex', value: '^[0-9]*$'});
+    }
+
     return validators;
   }
 
