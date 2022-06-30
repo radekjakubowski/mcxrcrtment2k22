@@ -38,7 +38,7 @@ export class CreatePersonComponent implements OnInit {
   }
 
   public createPerson(): void {
-    const formPerson: Person = this.createPersonForm.value;
+    const formPerson: Person = this.createPersonForm.getRawValue();
     const newPerson: Person = {...formPerson, id: this.rss.randomString(10) }
 
     this.createdPersonEmitter.emit(newPerson);
@@ -61,6 +61,7 @@ export class CreatePersonComponent implements OnInit {
 
     if (age) {
       this.createPersonForm.get('age').patchValue(age);
+      this.createPersonForm.get('age').disable();
     }
   }
 }
