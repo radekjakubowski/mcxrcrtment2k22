@@ -1,3 +1,4 @@
+import { FieldValidatorService } from './../../_services/field-validator.service';
 import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { PersonFormGroupService } from './../../_services/person-form-group.service';
 import { FormGroup } from '@angular/forms';
@@ -21,7 +22,7 @@ export class PersonFormComponent implements OnInit {
   public changesMade = false;
   public deleteHandler: EventEmitter<string> = new EventEmitter();
 
-  constructor(private pfgs: PersonFormGroupService) { }
+  constructor(private pfgs: PersonFormGroupService, public validationService: FieldValidatorService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -43,11 +44,5 @@ export class PersonFormComponent implements OnInit {
 
   deletePerson() {
     this.deleteHandler.emit(this.person.id);
-  }
-
-  patchControlValue(formControlName: string, event: Event) {
-    const element = event.currentTarget as HTMLInputElement;
-
-    this.userForm.get(formControlName).patchValue(element.value);
   }
 }

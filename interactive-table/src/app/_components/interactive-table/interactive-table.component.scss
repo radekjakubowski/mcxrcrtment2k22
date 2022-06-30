@@ -42,14 +42,22 @@
 }
 
 .mobile {
-  display: none !important;
+  display: none;
 
   @media only screen and (max-width: 1024px) {
     position: absolute;
     inset: 0;
-    display: grid !important;
+    display: flex;
+    flex-direction: column;
     place-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 20px;
     height: 100vh;
     padding: 20px;
+  }
+
+  .logo {
+    width: 200px;
   }
 }

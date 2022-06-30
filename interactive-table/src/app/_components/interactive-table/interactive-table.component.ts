@@ -1,3 +1,4 @@
+import { FieldValidatorService } from './../../_services/field-validator.service';
 import { AbstractValidator } from './../../_utilitites/abstract-validator';
 import { CreatePersonComponent } from './../create-person/create-person.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';

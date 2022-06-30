@@ -1,5 +1,14 @@
 .form-control {
+  position: relative;
   display: flex;
   justify-content: space-between;
   border: none;
+  height: 45px;
+}
+
+.field-error {
+  top: 25px;
+  position: absolute;
+  font-size: 12px;
+  color: red;
 }

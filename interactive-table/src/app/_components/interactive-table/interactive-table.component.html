@@ -1,9 +1,10 @@
 <div class="mobile">
   <h5>Supported only for desktop screen</h5>
+  <img class="logo" src="assets/logo-macrix.png" alt="logo">
 </div>
 <div class="desktop">
 <img class="logo" src="assets/logo-macrix.png" alt="logo">
-<h2 class="title">Macrix recrutation assignment - R. Jakubowski</h2>
+<h3 class="title">Macrix recrutation assignment - R. Jakubowski</h3>
 <h4 *ngIf="!people.length" class="text-center mt-5">Looks like there's no people in the table. Please add some.</h4>
 <div class="table-container">
   <table *ngIf="people.length">
@@ -23,12 +24,14 @@
       </tr>
     </thead>
     <tbody
+      class="table-row"
       #personForm
       appPersonForm
       *ngFor="let person of people$ | async"
       [controls]="this.personControls[person.id]"
       [person]="person"
-      (deleteHandler)="handlePersonDelete($event)">
+      (deleteHandler)="handlePersonDelete($event)"
+    >
     </tbody>
   </table>
 </div>

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Person } from '../../_models/person';
+import { FieldValidatorService } from '../../_services/field-validator.service';
 
 @Component({
   selector: 'app-create-person',
@@ -13,7 +14,7 @@ export class CreatePersonComponent implements OnInit {
   public createPersonForm: FormGroup;
   public createdPersonEmitter: EventEmitter<Person> = new EventEmitter();
 
-  constructor(public modalRef: BsModalRef, private rss: RandomStringService) {
+  constructor(public modalRef: BsModalRef, private rss: RandomStringService, private validationService: FieldValidatorService) {
     this.createForm();
    }
 
@@ -41,5 +42,14 @@ export class CreatePersonComponent implements OnInit {
 
     this.createdPersonEmitter.emit(newPerson);
     this.modalRef.hide();
+  }
+
+  public getValidationError(controlName: string) {
+    return this.validationService.getValidationError(this.createPersonForm.get(controlName), controlName);
+  }
+
+  public shouldDisplayError(controlName: string) {
+    const control = this.createPersonForm.get(controlName);
+    return !!control?.errors && control.touched;
   }
 }

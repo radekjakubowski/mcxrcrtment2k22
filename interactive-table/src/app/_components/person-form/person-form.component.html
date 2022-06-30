@@ -1,6 +1,6 @@
 <tr>
-  <ng-container [formGroup]="userForm"]>
-  <td *ngFor="let control of controls">
+  <ng-container [formGroup]="userForm">
+  <td *ngFor="let control of controls" class="person-row">
     <input
       class='input'
       [type]="control.controlType"
@@ -8,6 +8,7 @@
       [disabled]="control.disabled"
       [formControlName]="control.key"
     >
+    <p class='field-error' *ngIf="!!userForm.get(control.key).errors">{{ validationService.getValidationError(userForm.get(control.key), control.key) }}</p>
   </td>
   </ng-container>
   <td>

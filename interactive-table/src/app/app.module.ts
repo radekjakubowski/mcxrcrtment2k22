@@ -10,6 +10,7 @@ import { PersonFormComponent } from './_components/person-form/person-form.compo
 import { ModalModule, BsModalService } from 'ngx-bootstrap/modal';
 import { CreatePersonComponent } from './_components/create-person/create-person.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShortAnswerComponent } from './_components/short-answer/short-answer.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InteractiveTableComponent,
     PersonFormComponent,
     CreatePersonComponent,
+    ShortAnswerComponent,
   ],
   imports: [
     BrowserModule,

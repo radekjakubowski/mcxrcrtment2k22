@@ -1,9 +1,4 @@
-
-/* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
 body {
   padding: 20px;
@@ -12,4 +7,19 @@ body {
 input.ng-invalid {
   position: relative;
   border: 1px solid red;
+}
+
+.person-row {
+  position: relative;
+}
+
+.person-row p.field-error {
+  position: absolute;
+  color: red;
+  font-size: 12px;
+  width: 100%;
+}
+
+.table-row {
+  height: 50px;
 }
