@@ -1,5 +1,5 @@
 # mcxrcrtment2k22
-Assignment for Angular Developer role at Macrix Technology Group.
+Assignment for Angular Developer role at Macrix Technology Group hosted at https://adorable-lollipop-a3a882.netlify.app/
 
 Implement a web application which displays a table of people containing the following information:
 
